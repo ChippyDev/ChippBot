@@ -40,3 +40,5 @@ client.on('message', (message) => {
 });
 
 client.login(token);
+
+//https://discord.com/oauth2/authorize?client_id=740440940187222016&scope=bot
