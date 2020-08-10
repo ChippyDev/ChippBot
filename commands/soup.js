@@ -10,19 +10,25 @@ module.exports = {
 	name: 'soup',
 	description: 'Fetch a random soup image. Powered by google',
 	execute(message, args) {
-		const client = new GoogleImages(GoogleSEI, GoogleAPI);
-
 		message.channel.send('Finding Soup...');
 
-		client
-			.search('Soup', { page: getRandomInt(180) })
-			.then((images) => {
-				const theSoup = new Discord.MessageAttachment(images[getRandomInt(10)].url);
-				message.channel.send(theSoup);
-			})
-			.catch((err) => {
-				console.error(err);
-				message.channel.send('Error');
-			});
+		args[0] = args[0].toLowerCase();
+
+		if (args[0] == 'thesoup') {
+			const theSoup = new Discord.MessageAttachment('./the soup.jpg');
+			message.channel.send(theSoup);
+		} else {
+			const client = new GoogleImages(GoogleSEI, GoogleAPI);
+			client
+				.search(`${args[0]} Soup`, { page: getRandomInt(180) })
+				.then((images) => {
+					const theSoup = new Discord.MessageAttachment(images[getRandomInt(10)].url);
+					message.channel.send(theSoup);
+				})
+				.catch((err) => {
+					console.error(err);
+					message.channel.send('Error');
+				});
+		}
 	},
 };
