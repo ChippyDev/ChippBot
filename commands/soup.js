@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const GoogleImages = require('google-images');
-
-const rand1 = 180;
-const rand2 = 0;
+const { GoogleAPI, GoogleSEI } = require('../config.json');
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * Math.floor(max));
@@ -12,7 +10,7 @@ module.exports = {
 	name: 'soup',
 	description: 'Fetch a random soup image. Powered by google',
 	execute(message, args) {
-		const client = new GoogleImages('008164862876422939552:gizu6vqtgra', 'AIzaSyB4Qgm7lcMVT4IwvSPGlbGCqCpC-IDHG3o');
+		const client = new GoogleImages(GoogleSEI, GoogleAPI);
 
 		message.channel.send('Finding Soup...');
 
