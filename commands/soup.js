@@ -12,23 +12,26 @@ module.exports = {
 	execute(message, args) {
 		message.channel.send('Finding Soup...');
 
-		args[0] = args[0].toLowerCase();
-
-		if (args[0] == 'thesoup') {
-			const theSoup = new Discord.MessageAttachment('./the soup.jpg');
-			message.channel.send(theSoup);
-		} else {
-			const client = new GoogleImages(GoogleSEI, GoogleAPI);
-			client
-				.search(`${args[0]} Soup`, { page: getRandomInt(180) })
-				.then((images) => {
-					const theSoup = new Discord.MessageAttachment(images[getRandomInt(10)].url);
-					message.channel.send(theSoup);
-				})
-				.catch((err) => {
-					console.error(err);
-					message.channel.send('Error');
-				});
-		}
+		try {
+			if (args[0] == 'thesoup') {
+				const theSoup = new Discord.MessageAttachment('./the soup.jpg');
+				message.channel.send(theSoup);
+			} else {
+				const client = new GoogleImages(GoogleSEI, GoogleAPI);
+				client
+					.search(`${args[0]} Soup`, { page: getRandomInt(180) })
+					.then((images) => {
+						const theSoup = new Discord.MessageAttachment(images[getRandomInt(10)].url);
+						message.channel.send(theSoup);
+					})
+					.catch((err) => {
+						console.error(err);
+						message.channel.send('Error');
+					});
+			}
+		} catch (error) {
+			console.log("Discord.js did a stupid")
+			message.channel.send('<@140752312040816640> something stupid happend');
+		} 
 	},
 };

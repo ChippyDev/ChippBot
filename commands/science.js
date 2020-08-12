@@ -15,7 +15,7 @@ module.exports = {
 				console.log(`userdata saved`);
 			});
 		} else {
-			message.reply('You are not qualified to preform science!');
+			message.reply('You are not qualified to perform science!');
 		}
 	},
 };
