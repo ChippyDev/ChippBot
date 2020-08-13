@@ -5,10 +5,8 @@ module.exports = {
 	description: 'test',
 	execute(message, args) {
 		if (message.author.id == '140752312040816640') {
-
-			console.log(`${args[0]} ${args[1]} soup`)
 			
-
+			console.log(clean);
 		} else {
 			console.log('TEST');
 		}
