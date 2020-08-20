@@ -3,8 +3,8 @@ const fs = require('fs');
 module.exports = {
 	name: 'science',
 	usage: '<user>',
+	secret: true,
 	description: 'Preform science! scientists only!',
-	args: true,
 	execute(message, args) {
 		if (message.author.id == '140752312040816640') {
 			const target = message.mentions.users.first();

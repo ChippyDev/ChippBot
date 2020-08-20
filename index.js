@@ -13,7 +13,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	client.user.setActivity('~roll 1d6', { type: 'PLAYING' });
+	client.user.setActivity(`${prefix}help`, { type: 'PLAYING' });
 	console.log('Startup Complete!');
 });
 

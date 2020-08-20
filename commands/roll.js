@@ -3,7 +3,7 @@ const crypto = require('crypto');
 module.exports = {
 	name: 'roll',
 	alt: ['r'],
-	usage: '<dice formula>',
+	usage: '[dice formula]',
 	description: 'roll some dice! Defaults to 1d6',
 	execute(message, args) {
 		function cryptoRand(low, hi) {

@@ -8,7 +8,7 @@ function getRandomInt(max) {
 
 module.exports = {
 	name: 'soup',
-	usage: '<soup type>',
+	usage: '[soup type]',
 	description: 'Fetch a random soup image. Powered by google images',
 	execute(message, args) {
 		message.channel.send('Finding Soup...');
