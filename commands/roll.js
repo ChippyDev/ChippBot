@@ -2,6 +2,7 @@ const crypto = require('crypto');
 
 module.exports = {
 	name: 'roll',
+	alt: ['r'],
 	description: 'roll some dice! ',
 	execute(message, args) {
 		function cryptoRand(low, hi) {
@@ -45,7 +46,6 @@ module.exports = {
 			}
 			return getRand(low, hi);
 		}
-		console.log('---');
 
 		let results = [];
 		let die = [];
@@ -69,7 +69,7 @@ module.exports = {
 
 		if (results.toString().length < 2000) {
 			if (results.length > 0) {
-				message.channel.send(`${results.toString()}`);
+				message.channel.send(`${results.toString()}`, { split: true });
 			} else {
 				message.channel.send(`Thats not a number ${message.author.username}.`);
 			}
