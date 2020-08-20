@@ -3,7 +3,8 @@ const crypto = require('crypto');
 module.exports = {
 	name: 'roll',
 	alt: ['r'],
-	description: 'roll some dice! ',
+	usage: '<dice formula>',
+	description: 'roll some dice! Defaults to 1d6',
 	execute(message, args) {
 		function cryptoRand(low, hi) {
 			const maxRange = 4294967296;
@@ -54,13 +55,18 @@ module.exports = {
 		for (let a = 0; a < args.length; a++) {
 			cleanArgs += args[a];
 		}
+
 		console.log(cleanArgs);
 
-		const dieraw = cleanArgs.split('d');
+		var dieraw = cleanArgs.split('d');
 		console.log(dieraw);
 
+		if (cleanArgs.length < 1) {
+			dieraw = [1, 6];
+		}
+
 		die[0] = Math.max(0, Math.min(dieraw[0], 1000));
-		die[1] = Math.max(0, Math.min(dieraw[1], 1000));
+		die[1] = Math.max(0, Math.min(dieraw[1], 100000000));
 		console.log(die);
 
 		for (let k = 0; k < die[0]; k++) {

@@ -2,6 +2,7 @@ const fs = require('fs');
 
 module.exports = {
 	name: 'science',
+	usage: '<user>',
 	description: 'Preform science! scientists only!',
 	args: true,
 	execute(message, args) {

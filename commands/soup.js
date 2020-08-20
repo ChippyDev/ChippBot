@@ -8,7 +8,8 @@ function getRandomInt(max) {
 
 module.exports = {
 	name: 'soup',
-	description: 'Fetch a random soup image. Powered by google',
+	usage: '<soup type>',
+	description: 'Fetch a random soup image. Powered by google images',
 	execute(message, args) {
 		message.channel.send('Finding Soup...');
 
@@ -30,8 +31,8 @@ module.exports = {
 					});
 			}
 		} catch (error) {
-			console.log("Discord.js did a stupid")
+			console.log('Discord.js did a stupid');
 			message.channel.send('<@140752312040816640> something stupid happend');
-		} 
+		}
 	},
 };
