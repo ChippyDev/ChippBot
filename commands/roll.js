@@ -55,7 +55,6 @@ module.exports = {
 		for (let a = 0; a < args.length; a++) {
 			cleanArgs += args[a];
 		}
-
 		console.log(cleanArgs);
 
 		var dieraw = cleanArgs.split('d');
@@ -66,7 +65,7 @@ module.exports = {
 		}
 
 		die[0] = Math.max(0, Math.min(dieraw[0], 1000));
-		die[1] = Math.max(0, Math.min(dieraw[1], 100000000));
+		die[1] = Math.max(0, Math.min(dieraw[1], 1000000000));
 		console.log(die);
 
 		for (let k = 0; k < die[0]; k++) {
