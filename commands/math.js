@@ -12,32 +12,30 @@ module.exports = {
 		let operator = -1;
 		let secondOperand = '';
 		let operatorFound = false;
-		let result = 0;
+		let result = 1337;
 
 		for (let loop = 0; loop < args.length; loop++) {
 			input += args[loop];
 		}
-		console.log(input);
+		console.log(`input: ${input}`);
 		for (let loop = 0; loop < input.length; loop++) {
 			if (numbers.indexOf(input[loop]) >= 0) {
-				if ((operatorFound = false)) {
+				if (operatorFound == false) {
 					firstOperand += input[loop];
-					console.log(firstOperand);
+					console.log(`number 1: ${firstOperand}`);
 				} else {
 					secondOperand += input[loop];
-					console.log(secondOperand);
+					console.log(`number 2: ${secondOperand}`);
 				}
 			} else if (operators.indexOf(input[loop]) >= 0) {
-				if ((operatorFound = false)) {
+				if (operatorFound == false) {
 					operator = operators.indexOf(input[loop]);
 					operatorFound = true;
+					console.log(`operator: ${operator} found: ${operatorFound}`);
 				} else {
 					switch (operator) {
-						case -0:
-							console.log('error -0 operator');
-							break;
 						case 0:
-							result = firstOperand + secondOperand;
+							result = Number(firstOperand) + Number(secondOperand);
 							break;
 						case 1:
 						case 2:
@@ -48,7 +46,7 @@ module.exports = {
 			} else {
 				console.log('its invalid!');
 			}
-			message.channel.send(result);
 		}
+		console.log(`result: ${result}`);
 	},
 };
