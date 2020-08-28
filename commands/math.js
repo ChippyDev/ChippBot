@@ -12,7 +12,25 @@ module.exports = {
 		let operator = -1;
 		let secondOperand = '';
 		let operatorFound = false;
-		let result = 1337;
+		let result = 0;
+
+		function doMath(operand, operand2, operator) {
+			switch (operator) {
+				case 0:
+					result = Number(operand) + Number(operand2);
+					break;
+				case 1:
+					result = Number(operand) - Number(operand2);
+					break;
+				case 2:
+					result = Number(operand) * Number(operand2);
+					break;
+				case 3:
+					result = Number(operand) / Number(operand2);
+					break;
+			}
+			return result;
+		}
 
 		for (let loop = 0; loop < args.length; loop++) {
 			input += args[loop];
@@ -33,20 +51,19 @@ module.exports = {
 					operatorFound = true;
 					console.log(`operator: ${operator} found: ${operatorFound}`);
 				} else {
-					switch (operator) {
-						case 0:
-							result = Number(firstOperand) + Number(secondOperand);
-							break;
-						case 1:
-						case 2:
-						case 3:
-							console.log('noodles');
-					}
+					return;
 				}
 			} else {
-				console.log('its invalid!');
+				message.channel.send(`Invalid Character: ${input[loop]}`);
+				return;
 			}
 		}
-		console.log(`result: ${result}`);
+		if (operatorFound == false) {
+			message.channel.send(input);
+		} else {
+			result = doMath(firstOperand, secondOperand, operator);
+			message.channel.send(result);
+			console.log(`result: ${result}`);
+		}
 	},
 };
