@@ -5,13 +5,13 @@ module.exports = {
 	description: 'do math',
 	execute(message, args) {
 		var input = '';
-		const numbers = '0123456789';
-		const operators = '+-*/';
+		const numbers = '0123456789.';
+		const operators = '+-*/^';
+		const notation = 'e';
 
 		let firstOperand = '';
 		let operator = -1;
 		let secondOperand = '';
-		let operatorFound = false;
 		let result = 0;
 
 		function doMath(operand, operand2, operator) {
@@ -28,6 +28,8 @@ module.exports = {
 				case 3:
 					result = Number(operand) / Number(operand2);
 					break;
+				case 4:
+					result = Math.pow(Number(operand), Number(operand2));
 			}
 			return result;
 		}
@@ -35,10 +37,24 @@ module.exports = {
 		for (let loop = 0; loop < args.length; loop++) {
 			input += args[loop];
 		}
+
 		console.log(`input: ${input}`);
+
 		for (let loop = 0; loop < input.length; loop++) {
-			if (numbers.indexOf(input[loop]) >= 0) {
-				if (operatorFound == false) {
+			if (notation.indexOf(input[loop]) >= 0) {
+				if (operator < 0) {
+					firstOperand += input[loop];
+					loop++;
+					firstOperand += input[loop];
+					console.log(`number 1: ${firstOperand}`);
+				} else {
+					secondOperand += input[loop];
+					loop++;
+					secondOperand += input[loop];
+					console.log(`number 2: ${secondOperand}`);
+				}
+			} else if (numbers.indexOf(input[loop]) >= 0) {
+				if (operator < 0) {
 					firstOperand += input[loop];
 					console.log(`number 1: ${firstOperand}`);
 				} else {
@@ -46,19 +62,26 @@ module.exports = {
 					console.log(`number 2: ${secondOperand}`);
 				}
 			} else if (operators.indexOf(input[loop]) >= 0) {
-				if (operatorFound == false) {
+				if (operator < 0) {
 					operator = operators.indexOf(input[loop]);
-					operatorFound = true;
-					console.log(`operator: ${operator} found: ${operatorFound}`);
+					console.log(`operator: ${operator}`);
 				} else {
-					return;
+					stepResult = doMath(firstOperand, secondOperand, operator);
+					buffer = input.slice(loop);
+					console.log(`pointer: ${input[loop]} loop: ${loop} buffer: ${buffer} input: ${stepResult + buffer}`);
+					input = stepResult + buffer;
+					firstOperand = '';
+					operator = -1;
+					secondOperand = '';
+					loop = -1;
 				}
 			} else {
 				message.channel.send(`Invalid Character: ${input[loop]}`);
 				return;
 			}
 		}
-		if (operatorFound == false) {
+
+		if (operator < 0) {
 			message.channel.send(input);
 		} else {
 			result = doMath(firstOperand, secondOperand, operator);
