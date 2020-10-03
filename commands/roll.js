@@ -1,53 +1,53 @@
 const crypto = require('crypto');
 
+function cryptoRand(low, hi) {
+	const maxRange = 4294967296;
+	function getRandSample() {
+		return crypto.randomBytes(4).readUInt32LE();
+	}
+
+	function unsafeCoerce(sample, range) {
+		return sample % range;
+	}
+	function inExtendedRange(sample, range) {
+		return sample < Math.floor(maxRange / range) * range;
+	}
+
+	const maxIter = 100;
+
+	function rejectionSampling(range, inRange, coerce) {
+		var sample;
+		var i = 0;
+		do {
+			sample = getRandSample();
+			if (i >= maxIter) {
+				console.log('Too many iterations.');
+			}
+			i++;
+		} while (!inRange(sample, range));
+		return coerce(sample, range);
+	}
+
+	function getRandIntLessThan(range) {
+		return rejectionSampling(Math.ceil(range), inExtendedRange, unsafeCoerce);
+	}
+
+	function getRand(low, hi) {
+		if (low <= hi) {
+			const l = Math.ceil(low);
+			const h = Math.floor(hi);
+			return l + getRandIntLessThan(h - l + 1);
+		}
+	}
+	return getRand(low, hi);
+}
+
 module.exports = {
 	name: 'roll',
 	alt: ['r'],
 	usage: '[dice formula]',
 	description: 'roll some dice! Defaults to 1d6',
 	execute(message, args) {
-		function cryptoRand(low, hi) {
-			const maxRange = 4294967296;
-			function getRandSample() {
-				return crypto.randomBytes(4).readUInt32LE();
-			}
-
-			function unsafeCoerce(sample, range) {
-				return sample % range;
-			}
-			function inExtendedRange(sample, range) {
-				return sample < Math.floor(maxRange / range) * range;
-			}
-
-			const maxIter = 100;
-
-			function rejectionSampling(range, inRange, coerce) {
-				var sample;
-				var i = 0;
-				do {
-					sample = getRandSample();
-					if (i >= maxIter) {
-						console.log('Too many iterations.');
-					}
-					i++;
-				} while (!inRange(sample, range));
-				return coerce(sample, range);
-			}
-
-			function getRandIntLessThan(range) {
-				return rejectionSampling(Math.ceil(range), inExtendedRange, unsafeCoerce);
-			}
-
-			function getRand(low, hi) {
-				if (low <= hi) {
-					const l = Math.ceil(low);
-					const h = Math.floor(hi);
-					return l + getRandIntLessThan(h - l + 1);
-				}
-			}
-			return getRand(low, hi);
-		}
-
 		let results = [];
 		let die = [];
 		let cleanArgs = '';

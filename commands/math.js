@@ -41,7 +41,7 @@ module.exports = {
 		console.log(`input: ${input}`);
 
 		for (let loop = 0; loop < input.length; loop++) {
-			if (notation.indexOf(input[loop]) >= 0) {
+			if (input[loop] == 'e') {
 				if (operator < 0) {
 					firstOperand += input[loop];
 					loop++;
