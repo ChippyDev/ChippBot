@@ -7,7 +7,6 @@ module.exports = {
 		var input = '';
 		const numbers = '0123456789.';
 		const operators = '+-*/^';
-		const notation = 'e';
 
 		let firstOperand = '';
 		let operator = -1;
